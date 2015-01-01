@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NewBrickKiln</string>
+    <string name="footer_kll">KATHMANDU LIVING LABS</string>
+    <string name="action_settings">Settings</string>
+
+    <item name="btn_socio" type="id">btn_socio</item>
+    <item name="btn_tech" type="id">btn_tech</item>
+    <item name="btn_info" type="id">btn_info</item>
+</resources>
