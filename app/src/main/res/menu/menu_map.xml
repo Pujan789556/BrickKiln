@@ -1,6 +1,28 @@
+<<<<<<< HEAD
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MapActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:yourapp="http://schemas.android.com/apk/res-auto">
+<!-- Search / will display always -->
+
+    <item android:id="@+id/action_search"
+        android:title="@string/action_search"
+        yourapp:showAsAction="collapseActionView|ifRoom"
+        android:icon="@drawable/ic_action_search"
+
+        yourapp:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item android:id="@+id/action_about"
+    yourapp:showAsAction="always"
+    android:title="About"
+    android:icon="@drawable/ic_action_about"/>
+
+
+</menu>
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0

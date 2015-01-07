@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:scrollbars="vertical"
+    android:fillViewport="true">
+<RelativeLayout
+    android:orientation="vertical" android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:scrollbars="horizontal"
+    android:background="#ced2d4">
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffff1212"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+        android:text="Application Name:"/>
+
+
+
+    <TextView
+
+        android:id="@+id/app_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/app_name"
+        android:textColor="#ff2086ff"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+       />
+
+
+    <TextView
+        android:id="@+id/app_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_name"
+        android:textColor="#ffff1212"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+        android:text="Version:"/>
+
+
+    <TextView
+
+        android:id="@+id/app_version_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/app_version"
+        android:textColor="#ff2086ff"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+        />
+
+
+    <TextView
+
+        android:id="@+id/app_detail_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_version"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffff"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+        />
+    <TextView
+
+        android:id="@+id/app_developer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_detail_txt"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffff321b"
+        android:text="Developed By"
+        android:textStyle="bold|italic"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        />
+    <TextView
+
+        android:id="@+id/app_developer_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_developer"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#ff386aff"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+
+        />
+
+</RelativeLayout>
+    </ScrollView>

@@ -50,6 +50,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+<<<<<<< HEAD
+=======
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java/library" isTestSource="false" />
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
       <sourceFolder url="file://$MODULE_DIR$/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />

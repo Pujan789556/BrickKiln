@@ -1,14 +1,20 @@
 <TabHost
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/tabhost"
+<<<<<<< HEAD
     android:layout_width="300dp"
     android:layout_height="300dp">
+=======
+    android:layout_width="230dp"
+    android:layout_height="230dp">
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
+<<<<<<< HEAD
             android:layout_width="300dp"
             android:layout_height="50dp">
         <TextView
@@ -24,13 +30,41 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_toRightOf="@+id/textView1"/>
+=======
+            android:layout_width="230dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:background="#ced2d4"
+                android:textColor="#ff068cff"
+                android:textStyle="bold|italic"
+                android:textSize="15sp"/>
+
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:background="#ff3a320b"
+                android:layout_toRightOf="@+id/textView1"/>
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
         </RelativeLayout>
         <TabWidget
 
             android:id="@android:id/tabs"
+<<<<<<< HEAD
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="0"/>
+=======
+            android:layout_width="230dp"
+            android:layout_height="55dp"
+            android:layout_weight="0"
+            android:background="#ced2d4"
+            />
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 
         <FrameLayout
 
@@ -45,8 +79,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+<<<<<<< HEAD
             android:background="#f7454904"
            />
+=======
+            android:background="#ced2d4"
+            />
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 
     </LinearLayout>
 </TabHost>

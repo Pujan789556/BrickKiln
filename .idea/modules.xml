@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/BrickKiln.iml" filepath="$PROJECT_DIR$/BrickKiln.iml" />
       <module fileurl="file://$PROJECT_DIR$/NewBrickKiln.iml" filepath="$PROJECT_DIR$/NewBrickKiln.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/BrickKilnNew.iml" filepath="$PROJECT_DIR$/BrickKilnNew.iml" />
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

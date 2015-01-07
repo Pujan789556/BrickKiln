@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <resources>
 
     <!-- Base application theme. -->
@@ -6,3 +7,14 @@
     </style>
 
 </resources>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeWithCorners" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@drawable/rounded_corner_dialog</item>
+    </style>
+
+
+</resources>
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0

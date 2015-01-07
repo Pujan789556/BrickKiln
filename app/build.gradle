@@ -5,7 +5,11 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
+<<<<<<< HEAD
         applicationId "map.kll.org.newbrickkiln"
+=======
+        applicationId "map.kll.org.brickkilnnew"
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
         minSdkVersion 8
         targetSdkVersion 21
         versionCode 1
@@ -17,6 +21,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+<<<<<<< HEAD
+=======
+    sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/library'] } }
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 }
 
 dependencies {
@@ -24,5 +32,8 @@ dependencies {
     compile 'org.mapsforge:mapsforge-map:0.5.0'
     compile 'org.mapsforge:mapsforge-map-android:0.5.0'
     compile "com.android.support:appcompat-v7:21.0.3"
+<<<<<<< HEAD
 
+=======
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 }

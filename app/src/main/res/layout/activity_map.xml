@@ -7,18 +7,32 @@
     <org.mapsforge.map.android.view.MapView
         android:id="@+id/mapView"
         android:layout_width="fill_parent"
+<<<<<<< HEAD
         android:layout_height="match_parent" />
+=======
+        android:layout_height="990dp"
+         />
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 
     <TextView
         android:id="@+id/attribution"
         android:layout_width="fill_parent"
+<<<<<<< HEAD
         android:layout_height="10dip"
+=======
+        android:layout_height="10dp"
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="1dip"
         android:gravity="center"
         android:singleLine="true"
+<<<<<<< HEAD
         android:text="@string/footer_kll"
         android:textColor="#000"
+=======
+        android:text="KATHMANDU LIVING LABS"
+        android:textColor="#ffcc6d56"
+>>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
         android:textSize="4pt" />
 
 </RelativeLayout>
