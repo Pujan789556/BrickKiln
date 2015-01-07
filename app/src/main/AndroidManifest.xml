@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    package="map.kll.org.newbrickkiln" >
-    <uses-permission android:name="android.permission.INTERNET" />
-=======
+
     package="map.kll.org.brickkilnnew" >
->>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
+
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-<<<<<<< HEAD
-        android:theme="@android:style/Theme.Black"
-        >
-        <activity
-            android:name=".MapActivity"
-            android:label="@string/app_name"
-            >
-=======
+
         android:theme="@style/Theme.AppCompat" >
         <activity
             android:name=".MapActivity"
             android:label="@string/app_name"
             android:value="splitActionBarWhenNarrow"
             android:theme="@style/Theme.AppCompat.Light">
->>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,11 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
-            android:name="map.kll.org.newbrickkiln.MarkerActivity"
-            android:label=""
-            android:theme="@android:style/Theme.Dialog">
-=======
+
             android:name=".library.MarkerActivity"
             android:label="@string/app_name"
 
@@ -49,7 +35,6 @@
             android:label="ABOUT US"
 
             android:theme="@style/ThemeWithCorners">
->>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 
         </activity>
     </application>

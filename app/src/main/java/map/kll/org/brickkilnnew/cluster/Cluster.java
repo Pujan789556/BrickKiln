@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package map.kll.org.newbrickkiln.cluster;
+package map.kll.org.brickkilnnew.cluster;
 
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.layer.Layers;

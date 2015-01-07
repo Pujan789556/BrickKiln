@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package map.kll.org.newbrickkiln.cluster;;
+package map.kll.org.brickkilnnew.cluster;
 
 import android.util.Log;
 
@@ -26,6 +26,8 @@ import org.mapsforge.core.model.Point;
 import org.mapsforge.core.model.Rectangle;
 import org.mapsforge.core.util.MercatorProjection;
 import org.mapsforge.map.layer.Layer;
+
+;
 
 /**
  * Layer extended class to display Clustered Marker.
@@ -118,7 +120,7 @@ public class ClusterMarker<T extends GeoItem> extends Layer {
             bubble = MarkerBitmap.getBitmapFromTitle(mCluster.getTitle(),
                     mCluster.getClusterManager().mMarkerIconBmps
                             .get(mMarkerType).getPaint(),
-                    this.mCluster.getClusterManager().mContext );
+                    this.mCluster.getClusterManager().mContext);
             canvas.drawBitmap(bubble,
                     (int)(left + halfBitmapWidth - bubble.getWidth() / 2),
                     (int)(top - bubble.getHeight() ));

@@ -15,23 +15,23 @@
  * limitations under the License.
  */
 
-package map.kll.org.newbrickkiln.cluster;
+package map.kll.org.brickkilnnew.cluster;
 
-        import android.content.Context;
-        import android.os.AsyncTask;
+import android.content.Context;
+import android.os.AsyncTask;
 
-        import org.mapsforge.core.model.BoundingBox;
-        import org.mapsforge.core.model.LatLong;
-        import org.mapsforge.core.model.Point;
-        import org.mapsforge.map.model.DisplayModel;
-        import org.mapsforge.map.model.MapViewPosition;
-        import org.mapsforge.map.model.common.Observer;
-        import org.mapsforge.map.util.MapViewProjection;
-        import org.mapsforge.map.view.MapView;
+import org.mapsforge.core.model.BoundingBox;
+import org.mapsforge.core.model.LatLong;
+import org.mapsforge.core.model.Point;
+import org.mapsforge.map.model.DisplayModel;
+import org.mapsforge.map.model.MapViewPosition;
+import org.mapsforge.map.model.common.Observer;
+import org.mapsforge.map.util.MapViewProjection;
+import org.mapsforge.map.view.MapView;
 
-        import java.util.ArrayList;
-        import java.util.Collections;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class for Clustering geotagged content. this clustering came from

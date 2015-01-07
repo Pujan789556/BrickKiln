@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package map.kll.org.newbrickkiln.cluster;
+package map.kll.org.brickkilnnew.cluster;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -29,7 +29,7 @@ import org.mapsforge.map.model.DisplayModel;
 
 import java.util.HashMap;
 
-import map.kll.org.newbrickkiln.R;
+import map.kll.org.brickkilnnew.R;
 
 
 /**

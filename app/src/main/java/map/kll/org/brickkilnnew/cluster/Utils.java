@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package map.kll.org.newbrickkiln.cluster;
+package map.kll.org.brickkilnnew.cluster;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -46,7 +46,7 @@ public final class Utils {
      */
     @TargetApi(11)
     public static void enableHome(Activity a) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // Show the Up button in the action bar.
             a.getActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -62,7 +62,7 @@ public final class Utils {
      */
     @TargetApi(16)
     public static void setBackground(View view, Drawable background) {
-        if (android.os.Build.VERSION.SDK_INT >= 16) {
+        if (Build.VERSION.SDK_INT >= 16) {
             view.setBackground(background);
         } else {
             view.setBackgroundDrawable(background);

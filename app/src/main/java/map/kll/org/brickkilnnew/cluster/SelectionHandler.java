@@ -13,7 +13,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package map.kll.org.newbrickkiln.cluster;
+package map.kll.org.brickkilnnew.cluster;
 
 public interface SelectionHandler<T extends GeoItem> {
     public ClusterMarker<T> getSelectedItem();

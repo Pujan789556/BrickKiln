@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-<<<<<<< HEAD
-    <string name="app_name">NewBrickKiln</string>
-    <string name="footer_kll">KATHMANDU LIVING LABS</string>
-    <string name="action_settings">Settings</string>
-
-    <item name="btn_socio" type="id">btn_socio</item>
-    <item name="btn_tech" type="id">btn_tech</item>
-    <item name="btn_info" type="id">btn_info</item>
-=======
     <string name="app_name">BrickKilnNew</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -17,5 +7,4 @@
     <string name="action_search_bar">action_searc_bar</string>
     <string name="search_hint">Search Here</string>
 
->>>>>>> 81aa16ede241bc3a7c68cfb62c795729a48eb7b0
 </resources>
