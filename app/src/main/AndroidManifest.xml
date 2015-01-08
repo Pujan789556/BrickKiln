@@ -18,8 +18,8 @@
             android:name=".MapActivity"
             android:icon="@drawable/ic_launcher"
             android:label="KLL BRICK KILN"
-
-            android:theme="@style/Theme.AppCompat.Light">
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +38,13 @@
         <activity
             android:name=".About"
             android:label="ABOUT US"
+
+            android:theme="@style/ThemeWithCorners">
+
+        </activity>
+        <activity
+            android:name=".Search"
+            android:label="SEARCH"
 
             android:theme="@style/ThemeWithCorners">
 

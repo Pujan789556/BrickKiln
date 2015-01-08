@@ -12,18 +12,21 @@ xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
 
 
-    <item android:id="@+id/action_about"
-    yourapp:showAsAction="never"
-        android:orderInCategory="100"
-    android:title="About"
-    />
+
+
     <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
         yourapp:showAsAction="always"
         android:icon="@drawable/ic_action_overflow"
-        android:title="More"/>
-
-
+        android:title="More">
+        <menu>
+             <item android:id="@+id/action_about"
+                yourapp:showAsAction="never"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_action_about"
+                android:title="About"/>
+        </menu>
+    </item>
 
 </menu>

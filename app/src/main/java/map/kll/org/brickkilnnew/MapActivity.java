@@ -344,7 +344,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
             }
 
             public boolean onQueryTextSubmit(String query) {
-                onSearch(query);
+                onSearchByName(query,getApplicationContext());
 
                    return false;
             }
@@ -363,6 +363,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
                 Intent intent = new Intent(this,About.class);
                 startActivity(intent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -465,7 +466,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
 
     }
-    public void onSearch(String nameKiln){
+    public void onSearchByName(String nameKiln,Context c){
        int length = this.brickKilnArrayList.size();
         int i;
 
@@ -483,7 +484,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
         }
         if(i==length){
-            Toast.makeText(getApplicationContext(),
+            Toast.makeText(c,
                     "No Match Found", Toast.LENGTH_LONG).show();
 
         }
