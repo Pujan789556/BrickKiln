@@ -27,6 +27,7 @@
                 android:layout_height="50dp"
                 android:background="#ff3a320b"
                 android:layout_toRightOf="@+id/textView1"/>
+
         </RelativeLayout>
         <TabWidget
 
