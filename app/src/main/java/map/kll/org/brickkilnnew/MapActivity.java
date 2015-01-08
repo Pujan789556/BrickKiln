@@ -111,7 +111,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         this.mapView.getModel().mapViewPosition.setZoomLevel((byte) 10);
         // tile renderer layer using internal render theme
         this.tileRendererLayer = new TileRendererLayer(tileCache,
-        this.mapView.getModel().mapViewPosition, false, false, AndroidGraphicFactory.INSTANCE);
+        this.mapView.getModel().mapViewPosition, false, true, AndroidGraphicFactory.INSTANCE);
         tileRendererLayer.setMapFile(getMapFile());
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.OSMARENDER);
         // only once a layer is associated with a mapView the rendering starts
