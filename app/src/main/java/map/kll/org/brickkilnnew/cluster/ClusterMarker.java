@@ -18,7 +18,11 @@
 package map.kll.org.brickkilnnew.cluster;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.mapsforge.core.graphics.Bitmap;
 import org.mapsforge.core.model.BoundingBox;
@@ -27,6 +31,9 @@ import org.mapsforge.core.model.Point;
 import org.mapsforge.core.model.Rectangle;
 import org.mapsforge.core.util.MercatorProjection;
 import org.mapsforge.map.layer.Layer;
+
+import map.kll.org.brickkilnnew.library.BrickKiln;
+import map.kll.org.brickkilnnew.library.MarkerActivity;
 
 
 /**
@@ -174,12 +181,61 @@ public class ClusterMarker<T extends GeoItem> extends Layer {
                     + this.getPosition().toString());
             Log.w(TAG,"The Marker with title " + mCluster.getTitle() + " was touched with onTap");
             Log.w(TAG,"The Marker with items " + mCluster.getItems().size() + " was touched with onTap");
+            if (mCluster.getItems().size() == 1) {
+                Log.w(TAG,"The Marker is in " + mCluster.getBrickKiln().city);
+                launchMarkerActivity(mCluster.getBrickKiln(), mCluster.getClusterManager().mContext);
+            }else{
+                Toast.makeText(mCluster.getClusterManager().mContext,"There are "+ mCluster.getItems().size() + " brickkilns in the cluster, Zoom in for details",Toast.LENGTH_SHORT ).show();
+            }
             mCluster.getClusterManager().setSelectedItem(null, this);
 
             requestRedraw();
             return true;
         }
         return false;
+    }
+
+    public void launchMarkerActivity(BrickKiln brickKiln, Context context){
+        Intent intent = new Intent(context,MarkerActivity.class);
+        Bundle bundle = getBundleFromBricKiln(brickKiln);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public Bundle getBundleFromBricKiln(BrickKiln brickKiln){
+        Bundle bundle1 = new Bundle();
+
+        bundle1.putString("name",brickKiln.name);
+        bundle1.putString("city",brickKiln.city);
+        bundle1.putString("ownership",brickKiln.ownership);
+        bundle1.putString("market",brickKiln.market);
+        bundle1.putString("operating_seasons",brickKiln.operating_seasons);
+        bundle1.putString("days_open",brickKiln.days_open);
+        bundle1.putString("raw_material",brickKiln.raw_material);
+        bundle1.putString("fuel",brickKiln.fuel);
+        bundle1.putString("fuel_quantity",brickKiln.fuel_quantity);
+        bundle1.putString("brick_kind",brickKiln.brick_kind);
+        bundle1.putString("chimney_cat",brickKiln.chimney_cat);
+        bundle1.putString("chimney_height",brickKiln.chimney_height);
+        bundle1.putString("chimney_number",brickKiln.chimney_number);
+        bundle1.putString("moulding_process",brickKiln.moulding_process);
+        bundle1.putString("firing",brickKiln.firing);
+        bundle1.putString("capacity",brickKiln.capacity);
+        bundle1.putString("brick_per_batch",brickKiln.brick_per_batch);
+        bundle1.putString("quality",brickKiln.quality);
+        bundle1.putString("labor_children",brickKiln.labor_children);
+        bundle1.putString("labor_male",brickKiln.labor_male);
+        bundle1.putString("labor_female",brickKiln.labor_female);
+        bundle1.putString("labor_total",brickKiln.labor_total);
+        bundle1.putString("labor_young",brickKiln.labor_young);
+        bundle1.putString("labor_old",brickKiln.labor_old);
+        bundle1.putString("labor_currently_studying",brickKiln.labor_currently_studying);
+        bundle1.putString("labor_slc",brickKiln.labor_slc);
+        bundle1.putString("labor_informal_edu",brickKiln.labor_informal_edu);
+        bundle1.putString("labor_illiterate",brickKiln.labor_illiterate);
+        bundle1.putString("food_allowance",brickKiln.food_allowance);
+
+        return bundle1;
     }
 
     public synchronized boolean contains(Point viewPosition, Point tapPoint) {

@@ -19,6 +19,8 @@ package map.kll.org.brickkilnnew.cluster;
 
 import org.mapsforge.core.model.LatLong;
 
+import map.kll.org.brickkilnnew.library.BrickKiln;
+
 /**
  * Utility Class to handle GeoItem for ClusterMarker
  *
@@ -37,4 +39,6 @@ public interface GeoItem {
      * @return Title of the item, might be used as Caption text.
      */
     public String getTitle();
+
+    public BrickKiln getBrickKiln();
 }

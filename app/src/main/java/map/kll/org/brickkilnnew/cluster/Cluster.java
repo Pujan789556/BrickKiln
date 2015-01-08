@@ -23,6 +23,8 @@ import org.mapsforge.map.layer.Layers;
 import java.util.ArrayList;
 import java.util.List;
 
+import map.kll.org.brickkilnnew.library.BrickKiln;
+
 /**
  * Cluster class.
  * contains single marker object(ClusterMarker). mostly wraps methods in ClusterMarker.
@@ -45,6 +47,14 @@ public class Cluster<T extends GeoItem> {
             return getItems().get(0).getTitle();
         }
         return String.valueOf(getItems().size());
+    }
+
+    public BrickKiln getBrickKiln(){
+        if ( getItems().size() == 1 ) {
+            return getItems().get(0).getBrickKiln();
+        }
+        return null;
+
     }
     /**
      * @param clusterer ClusterManager object.
