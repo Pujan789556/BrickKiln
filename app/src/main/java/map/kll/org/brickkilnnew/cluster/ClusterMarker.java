@@ -17,6 +17,7 @@
 
 package map.kll.org.brickkilnnew.cluster;
 
+import android.app.Activity;
 import android.util.Log;
 
 import org.mapsforge.core.graphics.Bitmap;
@@ -27,7 +28,6 @@ import org.mapsforge.core.model.Rectangle;
 import org.mapsforge.core.util.MercatorProjection;
 import org.mapsforge.map.layer.Layer;
 
-;
 
 /**
  * Layer extended class to display Clustered Marker.
@@ -52,6 +52,7 @@ public class ClusterMarker<T extends GeoItem> extends Layer {
      * Whether this marker should react on Tap (implement a working onTap
      * Listener)
      */
+
     protected boolean ignoreOnTap;
 
     private Bitmap bubble;
@@ -153,6 +154,15 @@ public class ClusterMarker<T extends GeoItem> extends Layer {
     public LatLong getPosition() {
         return  getLatLong();
     }
+
+    public String getTitle(){
+        return mCluster.getTitle();
+    }
+
+    public int getItemsSize(){
+        return mCluster.getItems().size();
+    }
+
     @Override
     public synchronized boolean onTap(LatLong geoPoint, Point viewPosition,
                                       Point tapPoint) {
@@ -162,6 +172,8 @@ public class ClusterMarker<T extends GeoItem> extends Layer {
         if (/* mCluster.getItems().size() == 1 && */ contains(viewPosition, tapPoint)) {
             Log.w(TAG, "The Marker was touched with onTap: "
                     + this.getPosition().toString());
+            Log.w(TAG,"The Marker with title " + mCluster.getTitle() + " was touched with onTap");
+            Log.w(TAG,"The Marker with items " + mCluster.getItems().size() + " was touched with onTap");
             mCluster.getClusterManager().setSelectedItem(null, this);
 
             requestRedraw();

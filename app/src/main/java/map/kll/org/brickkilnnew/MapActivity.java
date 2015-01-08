@@ -1,54 +1,72 @@
 package map.kll.org.brickkilnnew;
 
-import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+
+
 import android.util.Log;
-import android.view.KeyEvent;
-import android.support.v7.internal.view.menu.MenuItemImpl;
-
-
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.support.v7.widget.SearchView;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mapsforge.core.graphics.Align;
+import org.mapsforge.core.graphics.Bitmap;
+import org.mapsforge.core.graphics.Color;
+import org.mapsforge.core.graphics.FontFamily;
+import org.mapsforge.core.graphics.FontStyle;
+import org.mapsforge.core.graphics.Paint;
+import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
+import org.mapsforge.core.model.Point;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.graphics.AndroidResourceBitmap;
+import org.mapsforge.map.android.rendertheme.AssetsRenderTheme;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
-import org.mapsforge.map.layer.overlay.Marker;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
+import org.mapsforge.map.rendertheme.XmlRenderTheme;
+import org.mapsforge.map.rendertheme.XmlRenderThemeMenuCallback;
+import org.mapsforge.map.rendertheme.XmlRenderThemeStyleLayer;
+import org.mapsforge.map.rendertheme.XmlRenderThemeStyleMenu;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Set;
 
+import map.kll.org.brickkilnnew.cluster.ClusterManager;
+import map.kll.org.brickkilnnew.cluster.GeoItem;
+import map.kll.org.brickkilnnew.cluster.MarkerBitmap;
 import map.kll.org.brickkilnnew.library.BrickKiln;
 import map.kll.org.brickkilnnew.library.JSONParse;
 import map.kll.org.brickkilnnew.library.OnAsyncTaskComplete;
-import map.kll.org.brickkilnnew.library.Utils;
 
 
-public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplete{
+public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplete, XmlRenderThemeMenuCallback {
     private static final String MAPFILE = "kathmandu.map";
         public static MapView mapView;
+
+
+    private ArrayList<MyGeoItem> myGeoItems = new ArrayList<MyGeoItem>();
+    protected ClusterManager clusterer = null;
+
+    protected XmlRenderThemeStyleMenu renderThemeStyleMenu;
+    protected SharedPreferences sharedPreferences;
+
     private TileCache tileCache;
     public static ArrayList<BrickKiln> brickKilnArrayList=null;
     private TileRendererLayer tileRendererLayer;
@@ -91,7 +109,6 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         AndroidGraphicFactory.createInstance(this.getApplication());
         this.mapView = new MapView(this);
         setContentView(this.mapView);
-
         this.mapView.setClickable(true);
         this.mapView.getMapScaleBar().setVisible(true);
         this.mapView.setBuiltInZoomControls(true);
@@ -102,6 +119,8 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         this.tileCache = AndroidUtil.createTileCache(this, "mapcache",
                 mapView.getModel().displayModel.getTileSize(), 1f,
                 this.mapView.getModel().frameBufferModel.getOverdrawFactor());
+
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -111,14 +130,183 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         this.mapView.getModel().mapViewPosition.setZoomLevel((byte) 10);
         // tile renderer layer using internal render theme
         this.tileRendererLayer = new TileRendererLayer(tileCache,
-        this.mapView.getModel().mapViewPosition, false, false, AndroidGraphicFactory.INSTANCE);
+        this.mapView.getModel().mapViewPosition, false, true, AndroidGraphicFactory.INSTANCE);
         tileRendererLayer.setMapFile(getMapFile());
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.OSMARENDER);
+        //tileRendererLayer.setXmlRenderTheme(getRenderTheme());
         // only once a layer is associated with a mapView the rendering starts
         this.mapView.getLayerManager().getLayers().add(tileRendererLayer);
         getKilnData();
 
     }
+
+    protected XmlRenderTheme getRenderTheme() {
+        //TODO use this method to allow switching overlays
+        try {
+            return new AssetsRenderTheme(this, getRenderThemePrefix(), getRenderThemeFile(), this);
+        } catch (IOException e) {
+            Log.e("IO EXCEPTION", "Render theme failure " + e.toString());
+        }
+        return null;
+    }
+
+    protected String getRenderThemePrefix() {
+        return "";
+    }
+
+    @Override
+    public Set<String> getCategories(XmlRenderThemeStyleMenu menuStyle) {
+        this.renderThemeStyleMenu = menuStyle;
+        String id = this.sharedPreferences.getString(this.renderThemeStyleMenu.getId(),
+                this.renderThemeStyleMenu.getDefaultValue());
+
+        XmlRenderThemeStyleLayer baseLayer = this.renderThemeStyleMenu.getLayer(id);
+        if (baseLayer == null) {
+            return null;
+        }
+        Set<String> result = baseLayer.getCategories();
+
+        // add the categories from overlays that are enabled
+        for (XmlRenderThemeStyleLayer overlay : baseLayer.getOverlays()) {
+            if (this.sharedPreferences.getBoolean(overlay.getId(), overlay.isEnabled())) {
+                result.addAll(overlay.getCategories());
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayCluster();
+
+    }
+
+    public void displayCluster(){
+        Log.i("DISPLAY CLUSTER GEOITEMS SIZE", String.valueOf(myGeoItems.size()));
+        // create clusterer instance
+        clusterer = new ClusterManager(this,
+                mapView,
+                getMarkerBitmap(this),
+                getZoomLevelMax(),
+                false);
+        // this uses the framebuffer position, the mapview position can be out of sync with
+        // what the user sees on the screen if an animation is in progress
+        this.mapView.getModel().frameBufferModel.addObserver(clusterer);
+        // add geoitems for clustering
+
+
+        for (int i = 0; i < myGeoItems.size(); i++) {
+            clusterer.addItem(myGeoItems.get(i));
+        }
+        clusterer.redraw();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (clusterer != null) {
+            clusterer.destroyGeoClusterer();
+            this.mapView.getModel().frameBufferModel.removeObserver(clusterer);
+            clusterer = null;
+        }
+    }
+
+    /**
+     * @return the maximum zoom level of the map view.
+     */
+    protected byte getZoomLevelMax() {
+        return (byte) 24;
+    }
+
+    protected String getRenderThemeFile() {
+        return "renderthemes/rendertheme-v4.xml";
+    }
+
+    private static ArrayList<MarkerBitmap> getMarkerBitmap(Context context) {
+        ArrayList<MarkerBitmap> markerBitmaps = new ArrayList<MarkerBitmap>();
+        // prepare for marker icons.
+        Drawable balloon;
+        // small icon for maximum single item
+        balloon = context.getResources().getDrawable(R.drawable.marker_green);
+        Bitmap bitmap_climbing_peak = AndroidGraphicFactory.convertToBitmap(balloon);
+        bitmap_climbing_peak.incrementRefCount();
+        balloon = context.getResources().getDrawable(R.drawable.marker_red);
+        Bitmap marker_red_s = AndroidGraphicFactory.convertToBitmap(balloon);
+        marker_red_s.incrementRefCount();
+        Paint paint_1;
+        paint_1 = AndroidGraphicFactory.INSTANCE.createPaint();
+        paint_1.setStyle(Style.STROKE);
+        paint_1.setTextAlign(Align.CENTER);
+        FontFamily fontFamily = FontFamily.DEFAULT;
+        FontStyle fontStyle = FontStyle.BOLD;
+        paint_1.setTypeface(fontFamily, fontStyle);
+        paint_1.setColor(Color.RED);
+        markerBitmaps.add(new MarkerBitmap(context, bitmap_climbing_peak, marker_red_s,
+                new Point(0, 0), 10f, 1, paint_1));
+
+        // TODO: check what happens with map rotation.
+        // small icon. for 10 or less items.
+        balloon = context.getResources().getDrawable(R.drawable.balloon_s_n);
+        Bitmap bitmap_balloon_s_n = AndroidGraphicFactory
+                .convertToBitmap(balloon);
+        bitmap_balloon_s_n.incrementRefCount();
+        balloon = context.getResources().getDrawable(R.drawable.balloon_s_s);
+        Bitmap bitmap_balloon_s_s = AndroidGraphicFactory
+                .convertToBitmap(balloon);
+        bitmap_balloon_s_s.incrementRefCount();
+        Paint paint_2;
+        paint_2 = AndroidGraphicFactory.INSTANCE.createPaint();
+        paint_2.setStyle(Style.FILL);
+        paint_2.setTextAlign(Align.CENTER);
+        fontFamily = FontFamily.DEFAULT;
+        fontStyle = FontStyle.BOLD;
+        paint_2.setTypeface(fontFamily, fontStyle);
+        paint_2.setColor(Color.BLACK);
+        markerBitmaps.add(new MarkerBitmap(context, bitmap_balloon_s_n,
+                bitmap_balloon_s_s, new Point(0, 0), 9f, 10,paint_2));
+
+        // large icon. 100 will be ignored.
+        balloon = context.getResources().getDrawable(R.drawable.balloon_m_n);
+        Bitmap bitmap_balloon_m_n = AndroidGraphicFactory
+                .convertToBitmap(balloon);
+        bitmap_balloon_m_n.incrementRefCount();
+        balloon = context.getResources().getDrawable(R.drawable.balloon_m_s);
+        Bitmap bitmap_balloon_m_s = AndroidGraphicFactory
+                .convertToBitmap(balloon);
+        bitmap_balloon_m_s.incrementRefCount();
+        Paint paint_3;
+        paint_3 = AndroidGraphicFactory.INSTANCE.createPaint();
+        paint_3.setStyle(Style.FILL);
+        paint_3.setTextAlign(Align.CENTER);
+        fontFamily = FontFamily.DEFAULT;
+        fontStyle = FontStyle.BOLD;
+        paint_3.setTypeface(fontFamily, fontStyle);
+        paint_3.setColor(Color.BLACK);
+        markerBitmaps.add(new MarkerBitmap(context, bitmap_balloon_m_n,
+                bitmap_balloon_m_s, new Point(0, 0), 18f, 100,paint_3));
+        return markerBitmaps;
+    }
+
+
+    protected class MyGeoItem implements GeoItem {
+        public String title;
+        public LatLong latLong;
+
+        public MyGeoItem(String title, LatLong latLong) {
+            this.title = title;
+            this.latLong = latLong;
+        }
+        public LatLong getLatLong(){
+            return latLong;
+        }
+        public String getTitle(){
+            return String.valueOf(this.title);
+        }
+    }
+
+
     public File getMapFile() {
         File f = new File(getCacheDir()+MAPFILE);
         if (!f.exists()) try {
@@ -182,6 +370,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     @Override
     protected void onStop() {
         super.onStop();
+        myGeoItems.clear();
         this.mapView.getLayerManager().getLayers().remove(this.tileRendererLayer);
         this.tileRendererLayer.onDestroy();
     }
@@ -253,6 +442,8 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
                     labor_children,labor_male,labor_female,labor_total,labor_young,labor_old,labor_currently_studying,labor_slc,labor_informal_edu,labor_illiterate,food_allowance);
 
         }
+        displayCluster();
+
     }
 
     public void addOverlayLayers(Layers layers,double lat, double lon,String name,String city,String ownership,String market,
@@ -262,11 +453,15 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
 
         LatLong latLong = new LatLong(lat, lon);
-        Marker marker1 = Utils.createTappableMarker(this,
+        //TODO add geoitem to the cluster
+        myGeoItems.add(new MyGeoItem(name,latLong));
+
+
+        /*Marker marker1 = Utils.createTappableMarker(this,
                 R.drawable.marker_kiln, latLong, name, city, ownership, market, operating_seasons, days_open,
                 raw_material, fuel, fuel_quantity, brick_kind, chimney_cat, chimney_height, chimney_number, moulding_process, firing, capacity, brick_per_batch, quality,
                 labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance);
-        layers.add(marker1);
+        layers.add(marker1);*/
 
 
     }

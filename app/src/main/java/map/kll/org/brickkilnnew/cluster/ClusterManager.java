@@ -58,7 +58,7 @@ public class ClusterManager<T extends GeoItem> implements Observer, SelectionHan
     /**
      * grid size for Clustering(dip).
      */
-    protected final float GRIDSIZE = 28 * DisplayModel.getDeviceScaleFactor();
+    protected final float GRIDSIZE = 65 * DisplayModel.getDeviceScaleFactor();
 
     /**
      * MarkerBitmap object for marker icons, uses Static access.
@@ -271,6 +271,10 @@ public class ClusterManager<T extends GeoItem> implements Observer, SelectionHan
                 addItem(currentLeftItems.get(i));
             }
         }
+    }
+
+    public List<Cluster<T>> getClusters(){
+        return mClusters;
     }
 
     // *********************************************************************************************************************
