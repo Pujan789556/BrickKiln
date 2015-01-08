@@ -32,7 +32,6 @@ import org.mapsforge.map.android.graphics.AndroidResourceBitmap;
 import org.mapsforge.map.android.rendertheme.AssetsRenderTheme;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
-import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
@@ -58,10 +57,10 @@ import map.kll.org.brickkilnnew.library.OnAsyncTaskComplete;
 
 public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplete, XmlRenderThemeMenuCallback {
     private static final String MAPFILE = "kathmandu.map";
-        public static MapView mapView;
+    public MapView mapView;
 
 
-    private ArrayList<MyGeoItem> myGeoItems = new ArrayList<MyGeoItem>();
+    private ArrayList<MyGeoItem> myGeoItems = new ArrayList<>();
     protected ClusterManager clusterer = null;
 
     protected XmlRenderThemeStyleMenu renderThemeStyleMenu;
@@ -71,38 +70,9 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     public static ArrayList<BrickKiln> brickKilnArrayList=null;
     private TileRendererLayer tileRendererLayer;
     static String name = null;
-    static String city = null;
-    static String ownership = null;
-    static String market = null;
-    static String operating_seasons = null;
-    static  String days_open = null;
     static Double latitude = null;
     static Double longitude = null;
-    static String raw_material=null;
-    static String fuel=null;
-    static String fuel_quantity=null;
-    static String brick_kind=null;
-    static String chimney_cat=null;
-    static String chimney_height=null;
-    static String chimney_number=null;
-    static String moulding_process=null;
-    static String firing=null;
-    static String capacity=null;
-    static String brick_per_batch=null;
-    static String quality=null;
 
-
-    static String labor_children=null;
-    static String labor_male=null;
-    static String labor_female=null;
-    static String labor_total=null;
-    static String labor_young=null;
-    static String labor_old=null;
-    static String labor_currently_studying=null;
-    static String labor_slc=null;
-    static String labor_informal_edu=null;
-    static String labor_illiterate=null;
-    static String food_allowance=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,7 +154,6 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     }
 
     public void displayCluster(){
-        Log.i("DISPLAY CLUSTER GEOITEMS SIZE", String.valueOf(myGeoItems.size()));
         // create clusterer instance
         clusterer = new ClusterManager(this,
                 mapView,
@@ -225,7 +194,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     }
 
     private static ArrayList<MarkerBitmap> getMarkerBitmap(Context context) {
-        ArrayList<MarkerBitmap> markerBitmaps = new ArrayList<MarkerBitmap>();
+        ArrayList<MarkerBitmap> markerBitmaps = new ArrayList<>();
         // prepare for marker icons.
         Drawable balloon;
         // small icon for maximum single item
@@ -293,10 +262,12 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     protected class MyGeoItem implements GeoItem {
         public String title;
         public LatLong latLong;
+        public BrickKiln brickKiln;
 
-        public MyGeoItem(String title, LatLong latLong) {
+        public MyGeoItem(String title, LatLong latLong, BrickKiln brickKiln) {
             this.title = title;
             this.latLong = latLong;
+            this.brickKiln = brickKiln;
         }
         public LatLong getLatLong(){
             return latLong;
@@ -304,6 +275,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         public String getTitle(){
             return String.valueOf(this.title);
         }
+        public BrickKiln getBrickKiln(){return brickKiln;}
     }
 
 
@@ -401,68 +373,19 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         int length = this.brickKilnArrayList.size();
         for (int i =0;i<length;i++) {
              name = brickKilnArrayList.get(i).name;
-             city = brickKilnArrayList.get(i).city;
              longitude= brickKilnArrayList.get(i).longitude;
              latitude= brickKilnArrayList.get(i).latitude;
-             ownership = brickKilnArrayList.get(i).ownership;
-             market = brickKilnArrayList.get(i).market;
-             operating_seasons = brickKilnArrayList.get(i).operating_seasons;
-             days_open=  brickKilnArrayList.get(i).days_open;
-
-
-             raw_material = brickKilnArrayList.get(i).raw_material;
-             fuel = brickKilnArrayList.get(i).fuel;
-            fuel_quantity = brickKilnArrayList.get(i).fuel_quantity;
-            brick_kind = brickKilnArrayList.get(i).brick_kind;
-            chimney_cat = brickKilnArrayList.get(i).chimney_cat;
-            chimney_height = brickKilnArrayList.get(i).chimney_height;
-            chimney_number = brickKilnArrayList.get(i).chimney_number;
-            moulding_process = brickKilnArrayList.get(i).moulding_process;
-            firing = brickKilnArrayList.get(i).firing;
-            capacity = brickKilnArrayList.get(i).capacity;
-            brick_per_batch = brickKilnArrayList.get(i).brick_per_batch;
-            quality = brickKilnArrayList.get(i).quality;
-
-            labor_children = brickKilnArrayList.get(i).labor_children;
-            labor_male = brickKilnArrayList.get(i).labor_male;
-            labor_female = brickKilnArrayList.get(i).labor_female;
-            labor_total = brickKilnArrayList.get(i).labor_total;
-            labor_young = brickKilnArrayList.get(i).labor_young;
-            labor_old = brickKilnArrayList.get(i).labor_old;
-            labor_currently_studying = brickKilnArrayList.get(i).labor_currently_studying;
-            labor_slc = brickKilnArrayList.get(i).labor_slc;
-            labor_informal_edu = brickKilnArrayList.get(i).labor_informal_edu;
-            labor_illiterate = brickKilnArrayList.get(i).labor_illiterate;
-            food_allowance = brickKilnArrayList.get(i).food_allowance;
-
-
-
-            addOverlayLayers(mapView.getLayerManager().getLayers(),
-                    latitude, longitude, name,city,ownership,market,operating_seasons,days_open,
-                    raw_material,fuel,fuel_quantity,brick_kind,chimney_cat,chimney_height,chimney_number,moulding_process,firing,capacity,brick_per_batch,quality,
-                    labor_children,labor_male,labor_female,labor_total,labor_young,labor_old,labor_currently_studying,labor_slc,labor_informal_edu,labor_illiterate,food_allowance);
+             addOverlayLayers(name,latitude,longitude,brickKilnArrayList.get(i));
 
         }
         displayCluster();
 
     }
 
-    public void addOverlayLayers(Layers layers,double lat, double lon,String name,String city,String ownership,String market,
-                                 String operating_seasons,String days_open, String raw_material,String fuel,String fuel_quantity,String brick_kind,String chimney_cat,String chimney_height,String chimney_number,
-                                 String moulding_process,String firing,String capacity,String brick_per_batch,String quality,
-                                 String labor_children,String labor_male,String labor_female,String labor_total,String labor_young,String labor_old,String labor_currently_studying,String labor_slc,String labor_informal_edu,String labor_illiterate,String food_allowance){
-
-
+    public void addOverlayLayers(String name, double lat, double lon, BrickKiln brickKiln){
         LatLong latLong = new LatLong(lat, lon);
         //TODO add geoitem to the cluster
-        myGeoItems.add(new MyGeoItem(name,latLong));
-
-
-        /*Marker marker1 = Utils.createTappableMarker(this,
-                R.drawable.marker_kiln, latLong, name, city, ownership, market, operating_seasons, days_open,
-                raw_material, fuel, fuel_quantity, brick_kind, chimney_cat, chimney_height, chimney_number, moulding_process, firing, capacity, brick_per_batch, quality,
-                labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance);
-        layers.add(marker1);*/
+        myGeoItems.add(new MyGeoItem(name,latLong,brickKiln));
 
 
     }
