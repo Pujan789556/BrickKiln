@@ -10,11 +10,22 @@
     android:layout_height="250dp"
     android:scrollbars="horizontal"
     android:background="#ced2d4">
-
+    <TextView
+        android:id="@+id/about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffff920b"
+        android:textStyle="bold|italic"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:textSize="17sp"
+        android:layout_marginBottom="5dp"
+        android:text="ABOUT US"/>
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/about_us"
         android:textColor="#ffff1212"
         android:textStyle="bold|italic"
         android:textSize="15sp"
@@ -27,6 +38,7 @@
         android:id="@+id/app_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/about_us"
         android:layout_toRightOf="@+id/app_name"
         android:textColor="#ff2086ff"
         android:textStyle="bold|italic"
@@ -45,16 +57,17 @@
         android:text="Version:"/>
 
 
-    <TextView
+     <TextView
 
-        android:id="@+id/app_version_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/app_version"
-        android:textColor="#ff2086ff"
-        android:textStyle="bold|italic"
-        android:textSize="15sp"
-        />
+    android:id="@+id/app_version_txt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+         android:textColor="#ff2086ff"
+    android:textStyle="bold|italic"
+    android:textSize="15sp"
+         android:layout_below="@+id/app_name"
+         android:layout_alignLeft="@+id/app_developer"
+         android:layout_alignStart="@+id/app_developer" />
 
 
     <TextView
@@ -76,9 +89,9 @@
         android:layout_below="@+id/app_detail_txt"
         android:layout_marginTop="20dp"
         android:textColor="#ffff321b"
-        android:text="Developed By"
+         android:text="Developed By"
         android:textStyle="bold|italic"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:layout_centerInParent="true"
         />
     <TextView
@@ -88,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_developer"
         android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:textColor="#ff386aff"
         android:textStyle="bold|italic"
         android:textSize="15sp"

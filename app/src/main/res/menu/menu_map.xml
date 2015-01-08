@@ -14,6 +14,9 @@ xmlns:yourapp="http://schemas.android.com/apk/res-auto">
     yourapp:showAsAction="always"
     android:title="About"
     android:icon="@drawable/ic_action_about"/>
-
+    <item android:="id/action_more"
+        yourapp:showAsAction="always"
+        android:title="More"
+        android:icon="@drawable/ic_action_overflow"/>
 
 </menu>

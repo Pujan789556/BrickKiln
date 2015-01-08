@@ -15,14 +15,11 @@ import map.kll.org.brickkilnnew.MapActivity;
 public class InfoFragment extends ListFragment {
 
 
-
     public InfoFragment(){
 
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         return super.onCreateView(inflater, container, savedInstanceState);
 
 
