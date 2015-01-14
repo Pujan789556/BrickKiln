@@ -234,7 +234,8 @@ public class ClusterMarker<T extends GeoItem> extends Layer {
         bundle1.putString("labor_informal_edu",brickKiln.labor_informal_edu);
         bundle1.putString("labor_illiterate",brickKiln.labor_illiterate);
         bundle1.putString("food_allowance",brickKiln.food_allowance);
-
+       bundle1.putStringArrayList("image",brickKiln.image);
+        Log.i("Before sending bundle",brickKiln.image.get(0));
         return bundle1;
     }
 

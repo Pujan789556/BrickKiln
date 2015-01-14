@@ -20,7 +20,7 @@ public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList
     private OnAsyncTaskComplete callback;
     private ProgressDialog pDialog;
     JSONArray geoLocation = null;
-
+    JSONArray pictures = null;
     //string varialbles for general information of kiln
     static String name = null;
     static String city = null;
@@ -89,12 +89,30 @@ public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList
 
         int i = 0;
         do {
+            ArrayList<String> image = new ArrayList<String>();
             try {
                 JSONObject json_obj = json.getJSONObject(i);
                 geoLocation = json_obj.getJSONArray("_geolocation");
+                   if (json_obj.has("pictures")) {
+                    pictures = json_obj.getJSONArray("pictures");
+
+               for(int j = 0;j<pictures.length();j++){
+                     JSONObject img_json_obj = (JSONObject) pictures.getJSONObject(j);
+                        Log.i("Index",Integer.toString(j));
+                        String imgStr = img_json_obj.getString("pictures/photo");
+                        Log.i("Image String",imgStr);
+                        image.add(imgStr);
+
+
+                }
+                       for (int k = 0;k<image.size();k++) {
+                           Log.i("Image", image.get(k));
+                       }
+                   }
 
                 //gettong general information from JSON
                 name = json_obj.getString("name");
+                Log.i("Name",name);
                 if (json_obj.has("city")) {
                     city = json_obj.getString("city");
                 } else {
@@ -251,19 +269,22 @@ public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList
                     longitude = geoLocation.getDouble(1);
                     BrickKiln brickKiln = new BrickKiln(name, latitude, longitude, city, ownership, market, operating_seasons, days_open,
                             raw_material, fuel, fuel_quantity, brick_kind, chimney_cat, chimney_height, chimney_number, moulding_process, firing, capacity, brick_per_batch, quality,
-                            labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance);
+                            labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance,
+                            image);
                     brickKilns.add(brickKiln);
                     i++;
                 } else {
                     BrickKiln brickKiln = new BrickKiln(name, 0.0, 0.0, city, ownership, market, operating_seasons, days_open,
                             raw_material, fuel, fuel_quantity, brick_kind, chimney_cat, chimney_height, chimney_number, moulding_process, firing, capacity, brick_per_batch, quality,
-                            labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance);
+                            labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance,
+                            image);
                     brickKilns.add(brickKiln);
                     i++;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         } while (i != length);
         return brickKilns;
     }

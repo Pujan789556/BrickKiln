@@ -6,7 +6,7 @@ xmlns:yourapp="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_search"
         android:title="@string/action_search"
         android:orderInCategory="1"
-        android:showAsAction="collapseActionView|ifRoom"
+       yourapp:showAsAction="collapseActionView|ifRoom"
         android:icon="@drawable/ic_action_search"
         yourapp:actionViewClass="android.support.v7.widget.SearchView"/>
 
@@ -16,12 +16,13 @@ xmlns:yourapp="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
-        android:showAsAction="always"
+        yourapp:showAsAction="always"
         android:icon="@drawable/ic_action_overflow"
         android:title="More">
         <menu>
+
              <item android:id="@+id/action_about"
-                android:showAsAction="never"
+                yourapp:showAsAction="never"
                 android:orderInCategory="100"
                 android:icon="@drawable/ic_action_about"
                 android:title="About"/>

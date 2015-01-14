@@ -4,18 +4,28 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
 
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import android.support.v7.widget.SearchView;
+import android.widget.CursorAdapter;
+import android.view.View;
+import android.widget.ArrayAdapter;
+
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import org.mapsforge.core.graphics.Align;
@@ -45,7 +55,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.zip.Inflater;
 
 import map.kll.org.brickkilnnew.cluster.ClusterManager;
 import map.kll.org.brickkilnnew.cluster.GeoItem;
@@ -73,6 +85,8 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     static Double latitude = null;
     static Double longitude = null;
 
+
+   // private SimpleCursorAdapter searchAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +105,8 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
                 this.mapView.getModel().frameBufferModel.getOverdrawFactor());
 
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+
     }
 
     @Override
@@ -100,7 +116,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         this.mapView.getModel().mapViewPosition.setZoomLevel((byte) 10);
         // tile renderer layer using internal render theme
         this.tileRendererLayer = new TileRendererLayer(tileCache,
-        this.mapView.getModel().mapViewPosition, false, true, AndroidGraphicFactory.INSTANCE);
+        this.mapView.getModel().mapViewPosition,false,true, AndroidGraphicFactory.INSTANCE);
         tileRendererLayer.setMapFile(getMapFile());
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.OSMARENDER);
         //tileRendererLayer.setXmlRenderTheme(getRenderTheme());
@@ -301,24 +317,60 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
 
+       /* searchAdapter = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_1,
+                null,
+                null,
+                null,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);*/
+        // Associate searchable configuration with the SearchView
+
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(getComponentName()));
-
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryRefinementEnabled(true);
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             public boolean onQueryTextChange(String newText) {
+                ArrayList<String> suggestList=onSearchSuggestion(newText);
+                String[] column = new String[]{"_id","name"};
+                Object[] temp = new Object[]{0,"default"};
+                final MatrixCursor cursor = new MatrixCursor(column);
+                for(int i = 0; i < suggestList.size(); i++) {
 
+                    temp[0] = i;
+                    temp[1] = suggestList.get(i);
+                    cursor.addRow(temp);
+
+                }
+
+                final SuggestionAdapter suggestionAdapter = new SuggestionAdapter( getBaseContext(),cursor, suggestList);
+                searchView.setSuggestionsAdapter(suggestionAdapter);
+                searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+                    @Override
+                    public boolean onSuggestionClick(int position) {
+                        String query = suggestionAdapter.getSelectedString(position);
+                        Log.i("Query",query);
+                        Log.i("Position",Integer.toString(position));
+                        onSearchByName(query);
+                        searchView.clearFocus();
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onSuggestionSelect(int position) {
+                        return false;
+                    }
+                });
                 return true;
             }
 
             public boolean onQueryTextSubmit(String query) {
-                onSearchByName(query,getApplicationContext());
-
-                   return false;
+                onSearchByName(query);
+                 return false;
             }
         };
         searchView.setOnQueryTextListener(queryTextListener);
@@ -389,7 +441,27 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
 
     }
-    public void onSearchByName(String nameKiln,Context c){
+    public ArrayList<String> onSearchSuggestion(String text){
+
+        int length = this.brickKilnArrayList.size();
+        ArrayList<String> nameArray = new ArrayList<String>();
+
+
+        int i;
+
+        for (i=0;i<length;i++){
+            String name=this.brickKilnArrayList.get(i).name;
+
+            if((text.length()!=0)&&(text.length()>1)&& (name.toUpperCase().contains(text.toUpperCase())==true)){
+                nameArray.add(name);
+
+            }
+        }
+
+        return nameArray;
+
+    }
+    public void onSearchByName(String nameKiln){
        int length = this.brickKilnArrayList.size();
         int i;
 
@@ -399,7 +471,11 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
             String name = this.brickKilnArrayList.get(i).name;
             nameKiln=nameKiln.toUpperCase();
             name=name.toUpperCase();
+
             if(nameKiln.equals(name)){
+                Log.i("Matched",nameKiln);
+                Log.i("Lat",Double.toString(lat));
+                Log.i("Long",Double.toString(lon));
                 this.mapView.getModel().mapViewPosition.setCenter(new LatLong(lat, lon));
                 this.mapView.getModel().mapViewPosition.setZoomLevel((byte) 18);
                 break;
@@ -407,9 +483,10 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
         }
         if(i==length){
-            Toast.makeText(c,
+            Toast.makeText(getApplicationContext(),
                     "No Match Found", Toast.LENGTH_LONG).show();
 
         }
             }
+
 }

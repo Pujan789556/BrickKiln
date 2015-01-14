@@ -1,6 +1,7 @@
 package map.kll.org.brickkilnnew.library;
 
 
+import java.util.ArrayList;
 
 public  class BrickKiln {
     public String name;
@@ -38,13 +39,14 @@ public  class BrickKiln {
     public String labor_illiterate;
     public String food_allowance;
 
-    public String image;
+    public ArrayList<String> image;
 
 
     public BrickKiln(String nameKiln, Double lat, Double lon, String cityKiln, String ownershipKiln, String marketKiln, String operatingSeasonKiln, String daysOpenKiln,
                      String raw_matetrialKiln, String fuelKiln, String fuel_quantitykiln, String brick_kindKiln, String chimney_catKiln, String chimney_heightKiln,
                      String chimney_numberKiln, String moulding_processKiln, String firingKiln, String capacityKiln, String brick_per_batchKiln, String qualityKiln,
-                     String labor_childrenKiln, String labor_maleKiln, String labor_femaleKiln, String labor_totalKiln, String labor_youngKiln, String labor_oldKiln, String labor_currently_studyingKiln, String labor_slcKiln, String labor_informal_eduKiln, String labor_illiterateKiln, String food_allowanceKiln){
+                     String labor_childrenKiln, String labor_maleKiln, String labor_femaleKiln, String labor_totalKiln, String labor_youngKiln, String labor_oldKiln, String labor_currently_studyingKiln, String labor_slcKiln, String labor_informal_eduKiln, String labor_illiterateKiln, String food_allowanceKiln,
+                     ArrayList<String> imageKiln){
         this.name = nameKiln;
         this.latitude = lat;
         this.longitude = lon;
@@ -76,7 +78,7 @@ public  class BrickKiln {
         this.labor_informal_edu = labor_informal_eduKiln;
         this.labor_illiterate = labor_illiterateKiln;
         this.food_allowance = food_allowanceKiln;
-
+        this.image = imageKiln;
 
     }
 

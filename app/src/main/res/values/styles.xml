@@ -4,5 +4,9 @@
     <style name="ThemeWithCorners" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@drawable/rounded_corner_dialog</item>
     </style>
+    <style name="ListFont" parent="@style/ThemeWithCorners">
+        <item name="android:textColor">#8d2c44ff</item>
+        <item name="android:typeface">sans</item>
+    </style>
 
 </resources>
