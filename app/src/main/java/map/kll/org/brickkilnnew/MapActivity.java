@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.support.v7.widget.SearchView;
+import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -339,29 +341,38 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
                 String[] column = new String[]{"_id","name"};
                 Object[] temp = new Object[]{0,"default"};
                 final MatrixCursor cursor = new MatrixCursor(column);
+                Log.i("Size",Integer.toString(suggestList.size()));
                 for(int i = 0; i < suggestList.size(); i++) {
-
                     temp[0] = i;
                     temp[1] = suggestList.get(i);
                     cursor.addRow(temp);
 
                 }
 
-                final SuggestionAdapter suggestionAdapter = new SuggestionAdapter( getBaseContext(),cursor, suggestList);
-                searchView.setSuggestionsAdapter(suggestionAdapter);
-                searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+
+                final SuggestionAdapter suggestionAdapter = new SuggestionAdapter(getBaseContext(), cursor,suggestList);
+                      searchView.setSuggestionsAdapter(suggestionAdapter);
+                  searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+
                     @Override
                     public boolean onSuggestionClick(int position) {
-                        String query = suggestionAdapter.getSelectedString(position);
+
+                        Cursor cursor1 = (Cursor) searchView.getSuggestionsAdapter().getItem(
+                                position);
+                        String query = cursor1.getString(cursor1.getColumnIndex("name"));
+
                         Log.i("Query",query);
-                        Log.i("Position",Integer.toString(position));
+                        Log.i("Position", Integer.toString(position));
                         onSearchByName(query);
-                        searchView.clearFocus();
+
+                        searchView.setIconified(false);
                         return true;
+
                     }
 
                     @Override
                     public boolean onSuggestionSelect(int position) {
+
                         return false;
                     }
                 });
@@ -453,7 +464,9 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
             String name=this.brickKilnArrayList.get(i).name;
 
             if((text.length()!=0)&&(text.length()>1)&& (name.toUpperCase().contains(text.toUpperCase())==true)){
-                nameArray.add(name);
+
+                    nameArray.add(name);
+
 
             }
         }
@@ -461,6 +474,11 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         return nameArray;
 
     }
+
+
+
+
+
     public void onSearchByName(String nameKiln){
        int length = this.brickKilnArrayList.size();
         int i;
@@ -488,5 +506,6 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
         }
             }
+
 
 }

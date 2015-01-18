@@ -11,8 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-
 public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList<BrickKiln>> {
 
     private Activity activity;
@@ -81,7 +79,7 @@ public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList
         pDialog.setCancelable(true);
         pDialog.show();
     }
-
+    @Override
     protected ArrayList<BrickKiln> doInBackground(ArrayList<BrickKiln>... args) {
         JSONParser jsonParser = new JSONParser();
         JSONArray json = jsonParser.getJSON(activity);

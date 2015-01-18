@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -27,7 +29,7 @@ public class MarkerActivity extends FragmentActivity{
     static ArrayList<String> generalInfo=new ArrayList<String>();
     static ArrayList<String> techDetail = new ArrayList<String>();
     static ArrayList<String> socioEconomic = new ArrayList<String>();
-
+    int downX,upX;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,15 +50,24 @@ public class MarkerActivity extends FragmentActivity{
         Log.i("Image on Tap",image.get(0));
         TextView textView = (TextView) findViewById(R.id.textView1);
         textView.setText(name + ",\n" + city);
-        Button button = (Button) findViewById(R.id.btnImg1);
-        button.setBackgroundResource(R.drawable.gallery);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        Button button1 = (Button) findViewById(R.id.btnImg1);
+        button1.setBackgroundResource(R.drawable.gallery);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MarkerActivity.this, FullImage.class);
                 Log.i("chkpt",Integer.toString(image.size()));
                 intent.putStringArrayListExtra("images",image);
                 startActivity(intent);
+
+            }
+        });
+        Button button2 = (Button) findViewById(R.id.close_btn);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
 
             }
         });
@@ -181,7 +192,7 @@ public class MarkerActivity extends FragmentActivity{
 
         /** Defining tab builder for Andriod tab */
 
-        TabHost.TabSpec tSpecInfo = tHost.newTabSpec("info");
+        final TabHost.TabSpec tSpecInfo = tHost.newTabSpec("info");
         tSpecInfo.setIndicator("GENERAL INFORMATION", getResources().getDrawable(R.drawable.info));
         tSpecInfo.setContent(new DummyTabContent(getBaseContext()));
 
@@ -201,7 +212,9 @@ public class MarkerActivity extends FragmentActivity{
         tSpecSocio.setIndicator("SOCIO-ECONOMIC", getResources().getDrawable(R.drawable.ic_socio));
         tSpecSocio.setContent(new DummyTabContent(getBaseContext()));
         tHost.addTab(tSpecSocio);
+
     }
+
         public ArrayList<String> getInfoArrayList(){
             ArrayList<String> info = this.generalInfo;
 

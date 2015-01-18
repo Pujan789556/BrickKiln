@@ -20,7 +20,11 @@ xmlns:yourapp="http://schemas.android.com/apk/res-auto">
         android:icon="@drawable/ic_action_overflow"
         android:title="More">
         <menu>
-
+            <item android:id="@+id/action_nearest_location"
+                yourapp:showAsAction="never"
+                android:orderInCategory="99"
+                android:icon="@drawable/ic_action_location_found"
+                android:title="Nearest Kiln"/>
              <item android:id="@+id/action_about"
                 yourapp:showAsAction="never"
                 android:orderInCategory="100"

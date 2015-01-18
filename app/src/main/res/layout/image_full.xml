@@ -1,16 +1,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+
+    >
 
 
+    <Button
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+         android:id="@+id/close_btn"
+         android:text="X"
+
+        android:layout_alignParentRight="true"
+        android:textColor="#FFF" android:background="@drawable/round_button_background"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="15sp" android:textStyle="bold"
+         />
+
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
+    >
     <ImageSwitcher
         android:id="@+id/imageSwitcher"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp" >
+        >
     </ImageSwitcher>
+</LinearLayout>
+
 
 </RelativeLayout>

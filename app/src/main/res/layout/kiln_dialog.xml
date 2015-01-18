@@ -1,40 +1,62 @@
-<TabHost
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<TabHost  xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/tabhost"
-    android:layout_width="300dp"
-    android:layout_height="300dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    >
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ced2d4"
        >
-        <RelativeLayout
-            android:layout_width="300dp"
-            android:layout_height="50dp">
-            <TextView
+
+
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="top|right"
+                android:id="@+id/close_btn"
+                android:layout_margin="-35dp"
+                android:text="X"
+                android:textColor="#FFF" android:background="@drawable/round_button_background"
+                android:gravity="center_vertical|center_horizontal"
+                 android:textSize="15sp" android:textStyle="bold"
+                />
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <TextView
                 android:id="@+id/textView1"
                 android:layout_width="230dp"
                 android:layout_height="50dp"
+
                 android:background="#ced2d4"
+                android:layout_alignParentLeft="true"
                 android:textColor="#ff068cff"
                 android:textStyle="bold|italic"
                 android:textSize="15sp"/>
-
 
             <Button
                 android:id="@+id/btnImg1"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:background="#ced2d4"
-                android:layout_toRightOf="@+id/textView1"
-                 />
 
-        </RelativeLayout>
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/textView1"/>
+
+            </RelativeLayout>
+
         <TabWidget
 
             android:id="@android:id/tabs"
-            android:layout_width="300dp"
+            android:weightSum="3.0"
+            android:layout_width="fill_parent"
             android:layout_height="55dp"
             android:layout_weight="0"
              />
@@ -55,8 +77,10 @@
             android:background="#38121118"
 
             >
+
              </FrameLayout>
 
 
     </LinearLayout>
+
 </TabHost>
