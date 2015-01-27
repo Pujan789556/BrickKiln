@@ -101,6 +101,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
         this.mapView.getMapScaleBar().setVisible(true);
        // this.mapView.setBuiltInZoomControls(true);
+
         this.mapView.getMapZoomControls().setShowMapZoomControls(true);
         this.mapView.getMapZoomControls().setZoomLevelMin((byte) 10);
         this.mapView.getMapZoomControls().setZoomLevelMax((byte) 19);
@@ -329,13 +330,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
 
-       /* searchAdapter = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_1,
-                null,
-                null,
-                null,
-                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);*/
-        // Associate searchable configuration with the SearchView
+
 
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
@@ -407,7 +402,10 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
                 Intent intent = new Intent(this,About.class);
                 startActivity(intent);
                 return true;
-
+            case R.id.zoomed_out:
+                this.mapView.getModel().mapViewPosition.setCenter(new LatLong(27.7000, 85.3333));
+                this.mapView.getModel().mapViewPosition.setZoomLevel((byte) 10);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

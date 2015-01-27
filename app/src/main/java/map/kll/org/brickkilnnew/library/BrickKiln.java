@@ -38,7 +38,7 @@ public  class BrickKiln {
     public String labor_informal_edu;
     public String labor_illiterate;
     public String food_allowance;
-
+    public String contact_number;
     public ArrayList<String> image;
 
 
@@ -46,7 +46,7 @@ public  class BrickKiln {
                      String raw_matetrialKiln, String fuelKiln, String fuel_quantitykiln, String brick_kindKiln, String chimney_catKiln, String chimney_heightKiln,
                      String chimney_numberKiln, String moulding_processKiln, String firingKiln, String capacityKiln, String brick_per_batchKiln, String qualityKiln,
                      String labor_childrenKiln, String labor_maleKiln, String labor_femaleKiln, String labor_totalKiln, String labor_youngKiln, String labor_oldKiln, String labor_currently_studyingKiln, String labor_slcKiln, String labor_informal_eduKiln, String labor_illiterateKiln, String food_allowanceKiln,
-                     ArrayList<String> imageKiln){
+                     ArrayList<String> imageKiln,String contact_numberKiln){
         this.name = nameKiln;
         this.latitude = lat;
         this.longitude = lon;
@@ -79,7 +79,7 @@ public  class BrickKiln {
         this.labor_illiterate = labor_illiterateKiln;
         this.food_allowance = food_allowanceKiln;
         this.image = imageKiln;
-
+        this.contact_number=contact_numberKiln;
     }
 
 

@@ -40,7 +40,6 @@ public class SuggestionAdapter extends CursorAdapter {
 
 
                TextView text = (TextView) view.findViewById(R.id.text);
-            text.setTextColor(Color.parseColor("#FF000000"));
                text.setText(items.get(cursor.getPosition()));
 
 

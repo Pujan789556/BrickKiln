@@ -55,7 +55,7 @@ public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList
     static String labor_informal_edu = null;
     static String labor_illiterate = null;
     static String food_allowance = null;
-
+    static String contact_number = null;
 
     //array list of BrickKiln types
     ArrayList<BrickKiln> brickKilns = new ArrayList<BrickKiln>();
@@ -259,6 +259,10 @@ public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList
                     food_allowance = json_obj.getString("food_allowance");
                 } else {
                     food_allowance = "N/A";
+                } if (json_obj.has("contact_number")) {
+                    contact_number = json_obj.getString("contact_number");
+                } else {
+                    contact_number = "N/A";
                 }
 
                 //adding in arraylist
@@ -268,14 +272,14 @@ public class JSONParse extends AsyncTask<ArrayList<BrickKiln>, String, ArrayList
                     BrickKiln brickKiln = new BrickKiln(name, latitude, longitude, city, ownership, market, operating_seasons, days_open,
                             raw_material, fuel, fuel_quantity, brick_kind, chimney_cat, chimney_height, chimney_number, moulding_process, firing, capacity, brick_per_batch, quality,
                             labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance,
-                            image);
+                            image,contact_number);
                     brickKilns.add(brickKiln);
                     i++;
                 } else {
                     BrickKiln brickKiln = new BrickKiln(name, 0.0, 0.0, city, ownership, market, operating_seasons, days_open,
                             raw_material, fuel, fuel_quantity, brick_kind, chimney_cat, chimney_height, chimney_number, moulding_process, firing, capacity, brick_per_batch, quality,
                             labor_children, labor_male, labor_female, labor_total, labor_young, labor_old, labor_currently_studying, labor_slc, labor_informal_edu, labor_illiterate, food_allowance,
-                            image);
+                            image,contact_number);
                     brickKilns.add(brickKiln);
                     i++;
                 }
