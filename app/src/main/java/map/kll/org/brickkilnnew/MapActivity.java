@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.gesture.Gesture;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
@@ -21,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.support.v7.widget.SearchView;
+import android.view.MotionEvent;
 import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
 import android.view.View;
@@ -96,8 +98,10 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         this.mapView = new MapView(this);
         setContentView(this.mapView);
         this.mapView.setClickable(true);
+
         this.mapView.getMapScaleBar().setVisible(true);
-        this.mapView.setBuiltInZoomControls(true);
+       // this.mapView.setBuiltInZoomControls(true);
+        this.mapView.getMapZoomControls().setShowMapZoomControls(true);
         this.mapView.getMapZoomControls().setZoomLevelMin((byte) 10);
         this.mapView.getMapZoomControls().setZoomLevelMax((byte) 19);
 
@@ -124,9 +128,14 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         //tileRendererLayer.setXmlRenderTheme(getRenderTheme());
         // only once a layer is associated with a mapView the rendering starts
         this.mapView.getLayerManager().getLayers().add(tileRendererLayer);
+
+
         getKilnData();
 
     }
+
+
+
 
     protected XmlRenderTheme getRenderTheme() {
         //TODO use this method to allow switching overlays
@@ -366,7 +375,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
                         onSearchByName(query);
 
                         searchView.setIconified(false);
-                        return true;
+                        return false;
 
                     }
 
@@ -393,7 +402,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         // Take appropriate action for each action item click
         switch (item.getItemId()) {
             case R.id.action_search:
-                 return true;
+                 return false;
             case R.id.action_about:
                 Intent intent = new Intent(this,About.class);
                 startActivity(intent);

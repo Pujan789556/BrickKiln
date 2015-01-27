@@ -145,7 +145,7 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
 
         }else {
             Toast.makeText(this, "No Internet Connection \n Check Your Internet Connection", Toast.LENGTH_LONG).show();
-            imageList=null;
+            finish();
 
 
         }

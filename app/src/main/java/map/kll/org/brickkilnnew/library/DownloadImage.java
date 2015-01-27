@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class DownloadImage extends AsyncTask<ArrayList<Bitmap>,ArrayList<Bitmap>,ArrayList<Bitmap>>{
+public class DownloadImage extends AsyncTask<ArrayList<Bitmap>,ArrayList<Bitmap>,ArrayList<Bitmap>> {
     private Activity activity;
     private Context context;
     private ArrayList<String> image;
@@ -28,13 +28,14 @@ public class DownloadImage extends AsyncTask<ArrayList<Bitmap>,ArrayList<Bitmap>
 
     public ArrayList<Bitmap> imageList;
 
-    public DownloadImage(Context c,ArrayList<String> img) {
+    public DownloadImage(Context c, ArrayList<String> img) {
         this.context = c;
         this.image = img;
         Activity a = (Activity) c;
         this.activity = a;
         this.callback = (OnDownloadImageComplete) a;
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -44,27 +45,29 @@ public class DownloadImage extends AsyncTask<ArrayList<Bitmap>,ArrayList<Bitmap>
         pDialog.setCancelable(true);
         pDialog.show();
     }
+
     @Override
     protected ArrayList<Bitmap> doInBackground(ArrayList<Bitmap>... args) {
 
-        if (haveNetworkConnection()==true){
+        if (haveNetworkConnection() == true && isOnline() == true) {
             imageList = new ArrayList<Bitmap>();
-            for (int i = 0;i<image.size();i++) {
+            for (int i = 0; i < image.size(); i++) {
                 Bitmap bm = (Bitmap) getBitmapFromURL("https://ona.io/attachment/medium?media_file=ktmlabs/attachments/" + image.get(i));
                 imageList.add(bm);
-                            }
+            }
         }
         return imageList;
     }
+
     @Override
     protected void onPostExecute(ArrayList<Bitmap> imgList) {
         pDialog.dismiss();
 
-            callback.onImageDownload(imgList);
-
+        callback.onImageDownload(imgList);
 
 
     }
+
     public Bitmap getBitmapFromURL(String src) {
 
         try {
@@ -74,31 +77,50 @@ public class DownloadImage extends AsyncTask<ArrayList<Bitmap>,ArrayList<Bitmap>
             connection.connect();
             connection.setConnectTimeout(10000);
             connection.setReadTimeout(10000);
-                        InputStream input = connection.getInputStream();
+            InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             Log.e("Bitmap", "returned");
 
             return myBitmap;
         } catch (IOException e) {
-            Log.e("Error",e.getMessage());
-            Toast.makeText(context, "Connection Time Out \n Check Your Internet Connection", Toast.LENGTH_LONG).show();
+            Log.e("Error", e.getMessage());
+            Toast.makeText(context, "Download Failed \n Check Your Internet Connection", Toast.LENGTH_LONG).show();
             return null;
         }
     }
+
     private boolean haveNetworkConnection() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
         NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+
         for (NetworkInfo ni : netInfo) {
             if (ni.getTypeName().equalsIgnoreCase("WIFI"))
                 if (ni.isConnected())
-                    haveConnectedWifi = true;
+
+                        haveConnectedWifi = true;
+
             if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
                 if (ni.isConnected())
-                    haveConnectedMobile = true;
+
+                        haveConnectedMobile = true;
+
         }
         return haveConnectedWifi || haveConnectedMobile;
     }
+    public Boolean isOnline() {
+        try {
+            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+            int returnVal = p1.waitFor();
+            boolean reachable = (returnVal==0);
+            return reachable;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
