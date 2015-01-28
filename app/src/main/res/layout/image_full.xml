@@ -1,39 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#FFFF"
-
     >
-
 
     <Button
         android:layout_width="25dp"
         android:layout_height="25dp"
-         android:id="@+id/close_btn"
-         android:text="X"
-
+        android:id="@+id/close_btn"
+        android:text="X"
         android:layout_alignParentRight="true"
-        android:textColor="#FFF" android:background="@drawable/round_button_background"
+        android:visibility="visible"
+        android:textColor="#FFF"
+        android:background="@drawable/round_button_background"
         android:gravity="center_vertical|center_horizontal"
         android:textSize="15sp" android:textStyle="bold"
-         />
+        />
 
 
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginTop="25dp"
-    >
+
     <ImageSwitcher
         android:id="@+id/imageSwitcher"
+        android:layout_below="@+id/close_btn"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="fitXY"
+        android:layout_marginBottom="25dp"
+      >
 
-        >
+
     </ImageSwitcher>
-</LinearLayout>
-
-
 </RelativeLayout>

@@ -77,7 +77,6 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
             DownloadImage downloadImage = new DownloadImage(this, image);
             downloadImage.execute();
 
-
     }
     @Override
     public void onImageDownload(ArrayList<Bitmap> imgList){
@@ -93,6 +92,8 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
             public View makeView() {
                 ImageView imageView = new ImageView(FullImage.this);
                 imageView.isFocusable();
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setPadding(0,0,0,25);
                 return imageView;
 
             }
