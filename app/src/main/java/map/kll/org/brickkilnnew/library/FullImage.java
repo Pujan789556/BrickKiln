@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -39,9 +41,10 @@ import map.kll.org.brickkilnnew.R;
 
 
 public class FullImage extends Activity implements OnDownloadImageComplete{
-
+    public static int count = 0;
+    public  String name;
     ArrayList<String> image = new ArrayList<String>();
-    public static  ArrayList<Bitmap> imageList = null;
+    public  ArrayList<Bitmap> imageList;
     ProgressDialog progressDialog;
     int curIndex=0;
     int downX,upX;
@@ -49,9 +52,12 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_full);
+
         Intent intent = getIntent();
+        name = intent.getStringExtra("name");
         image = intent.getStringArrayListExtra("images");
         Button button2 = (Button) findViewById(R.id.close_btn);
         button2.setOnClickListener(new View.OnClickListener() {
@@ -68,17 +74,19 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
     @Override
     protected void onStart() {
         super.onStart();
-        DownloadImage downloadImage = new DownloadImage(this,image);
-        downloadImage.execute();
+            DownloadImage downloadImage = new DownloadImage(this, image);
+            downloadImage.execute();
+
 
     }
     @Override
     public void onImageDownload(ArrayList<Bitmap> imgList){
         this.imageList = imgList;
-        showImage(imgList);
+        showImage(this.imageList);
     }
     public void showImage(ArrayList<Bitmap> imgList){
-       imageList = imgList;
+
+        final ArrayList<Bitmap> images = imgList;
         final ImageSwitcher imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -111,26 +119,29 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
                                 //curIndex  current image index in array viewed by user
                                 curIndex--;
                                 if (curIndex < 0) {
-                                    curIndex = imageList.size()-1;
+                                    curIndex = images.size()-1;
                                 }
 
 
                                 imageSwitcher.setInAnimation(getBaseContext(), android.R.anim.fade_in);
                                 imageSwitcher.setOutAnimation(getBaseContext(), android.R.anim.fade_out);
-                                Drawable d = new BitmapDrawable(imageList.get(curIndex));
+                                Bitmap imageBmp=imageList.get(curIndex);
+
+                                Drawable d = new BitmapDrawable(imageBmp);
+
                                 imageSwitcher.setImageDrawable(d);
                             }
                             else if (downX>upX) {
 
                                 curIndex++;
-                                if (curIndex == imageList.size()) {
+                                if (curIndex == images.size()) {
                                     curIndex = 0;
                                 }
 
 
                                 imageSwitcher.setInAnimation(getBaseContext(), android.R.anim.fade_in);
                                 imageSwitcher.setOutAnimation(getBaseContext(), android.R.anim.fade_out);
-                                Drawable d = new BitmapDrawable(imageList.get(curIndex));
+                                Drawable d = new BitmapDrawable(images.get(curIndex));
                                 imageSwitcher.setImageDrawable(d);
                             }
                             break;
@@ -141,7 +152,7 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
                     return true ;
                 }                       });
 
-            curIndex = (curIndex + 1) % imageList.size();
+            curIndex = (curIndex + 1) % images.size();
 
         }else {
             Toast.makeText(this, "No Internet Connection \n Check Your Internet Connection", Toast.LENGTH_LONG).show();

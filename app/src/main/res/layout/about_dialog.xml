@@ -1,33 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="250dp"
-    android:scrollbars="vertical"
-    android:fillViewport="true">
-<RelativeLayout
-    android:orientation="vertical" android:layout_width="250dp"
-    android:layout_height="250dp"
-    android:scrollbars="horizontal"
-    android:background="#ced2d4">
+    android:background="#FFFF"
+
+    >
+<Button
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:id="@+id/close_btn"
+    android:text="X"
+
+    android:layout_alignParentRight="true"
+    android:textColor="#FFF" android:background="@drawable/round_button_background"
+    android:gravity="center_vertical|center_horizontal"
+    android:textSize="15sp" android:textStyle="bold"
+    />
     <TextView
         android:id="@+id/about_us"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffff920b"
-        android:textStyle="bold|italic"
+        android:textColor="#ff000000"
+        android:textStyle="bold"
         android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
         android:textSize="17sp"
         android:layout_marginBottom="5dp"
         android:text="ABOUT US"/>
+    <View
+        android:id="@+id/underline1"
+        android:layout_below="@+id/about_us"
+        android:layout_width="150dp"
+        android:layout_marginTop="-5dp"
+        android:layout_centerInParent="true"
+        android:layout_height="2dp"
+        android:background="#ff000000"/>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="30dp"
+    android:scrollbars="vertical"
+    android:fillViewport="true">
+
+<RelativeLayout
+    android:orientation="vertical" android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:scrollbars="horizontal"
+    >
+
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/about_us"
-        android:textColor="#ffff1212"
-        android:textStyle="bold|italic"
+
+        android:textColor="#ff000000"
+        android:textStyle="bold"
         android:textSize="15sp"
         android:text="Application Name:"/>
 
@@ -38,10 +67,9 @@
         android:id="@+id/app_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/about_us"
+
         android:layout_toRightOf="@+id/app_name"
-        android:textColor="#ff2086ff"
-        android:textStyle="bold|italic"
+        android:textColor="#ff000000"
         android:textSize="15sp"
        />
 
@@ -51,8 +79,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_name"
-        android:textColor="#ffff1212"
-        android:textStyle="bold|italic"
+        android:textColor="#ff000000"
+        android:textStyle="bold"
         android:textSize="15sp"
         android:text="Version:"/>
 
@@ -62,8 +90,8 @@
     android:id="@+id/app_version_txt"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-         android:textColor="#ff2086ff"
-    android:textStyle="bold|italic"
+         android:textColor="#ff000000"
+
     android:textSize="15sp"
          android:layout_below="@+id/app_name"
          android:layout_alignLeft="@+id/app_developer"
@@ -71,15 +99,15 @@
 
 
     <TextView
-
         android:id="@+id/app_detail_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_version"
         android:layout_marginTop="20dp"
-        android:textColor="#ffff"
-        android:textStyle="bold|italic"
+        android:textColor="#ff000000"
         android:textSize="15sp"
+        android:autoLink="web"
+        android:linksClickable="true"
         />
     <TextView
 
@@ -88,25 +116,33 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_detail_txt"
         android:layout_marginTop="20dp"
-        android:textColor="#ffff321b"
+        android:textColor="#ff000000"
          android:text="Developed By"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:textSize="17sp"
         android:layout_centerInParent="true"
         />
+    <View
+        android:id="@+id/underline2"
+        android:layout_below="@+id/app_developer"
+        android:layout_width="100dp"
+        android:layout_marginBottom="-5dp"
+        android:layout_centerInParent="true"
+        android:layout_height="2dp"
+        android:background="#ff000000"/>
     <TextView
 
         android:id="@+id/app_developer_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_developer"
+        android:layout_below="@+id/underline2"
         android:layout_centerInParent="true"
         android:layout_marginTop="5dp"
-        android:textColor="#ff386aff"
-        android:textStyle="bold|italic"
+        android:textColor="#ff000000"
         android:textSize="15sp"
 
         />
 
 </RelativeLayout>
     </ScrollView>
+    </RelativeLayout>

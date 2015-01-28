@@ -17,6 +17,7 @@ import android.os.Bundle;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,6 +82,9 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
 
     protected XmlRenderThemeStyleMenu renderThemeStyleMenu;
     protected SharedPreferences sharedPreferences;
+    private GestureDetector mGestureDetector;
+
+
 
     private TileCache tileCache;
     public static ArrayList<BrickKiln> brickKilnArrayList=null;
@@ -105,14 +109,13 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         this.mapView.getMapZoomControls().setShowMapZoomControls(true);
         this.mapView.getMapZoomControls().setZoomLevelMin((byte) 10);
         this.mapView.getMapZoomControls().setZoomLevelMax((byte) 19);
-
+        this.mapView.getModel().mapViewPosition.setZoomLevelMax((byte) 19);
+        this.mapView.getModel().mapViewPosition.setZoomLevelMin((byte) 10);
         // create a tile cache of suitable size
         this.tileCache = AndroidUtil.createTileCache(this, "mapcache",
                 mapView.getModel().displayModel.getTileSize(), 1f,
                 this.mapView.getModel().frameBufferModel.getOverdrawFactor());
-
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
 
     }
 
@@ -121,7 +124,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         super.onStart();
         this.mapView.getModel().mapViewPosition.setCenter(new LatLong(27.7000, 85.3333));
         this.mapView.getModel().mapViewPosition.setZoomLevel((byte) 10);
-        // tile renderer layer using internal render theme
+                // tile renderer layer using internal render theme
         this.tileRendererLayer = new TileRendererLayer(tileCache,
         this.mapView.getModel().mapViewPosition,false,true, AndroidGraphicFactory.INSTANCE);
         tileRendererLayer.setMapFile(getMapFile());
@@ -129,7 +132,6 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         //tileRendererLayer.setXmlRenderTheme(getRenderTheme());
         // only once a layer is associated with a mapView the rendering starts
         this.mapView.getLayerManager().getLayers().add(tileRendererLayer);
-
 
         getKilnData();
 
@@ -416,6 +418,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         myGeoItems.clear();
         this.mapView.getLayerManager().getLayers().remove(this.tileRendererLayer);
         this.tileRendererLayer.onDestroy();
+        finish();
     }
 
     @Override
@@ -425,6 +428,7 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         this.mapView.getModel().mapViewPosition.destroy();
         this.mapView.destroy();
         AndroidResourceBitmap.clearResourceBitmaps();
+        finish();
     }
 
 

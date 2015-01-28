@@ -52,7 +52,7 @@ public class MarkerActivity extends Activity {
         this.infoValue.clear();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String name = bundle.getString("name");
+        final String name = bundle.getString("name");
         String city = bundle.getString("city");
         String contact_number = bundle.getString("contact");
 
@@ -84,10 +84,13 @@ public class MarkerActivity extends Activity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MarkerActivity.this, FullImage.class);
-                Log.i("chkpt", Integer.toString(image.size()));
-                intent.putStringArrayListExtra("images", image);
-                startActivity(intent);
+
+                    Intent intent = new Intent(MarkerActivity.this, FullImage.class);
+                    Log.i("chkpt", Integer.toString(image.size()));
+                    intent.putExtra("name",name);
+                    intent.putStringArrayListExtra("images", image);
+                    startActivity(intent);
+
 
             }
         });
