@@ -71,7 +71,7 @@
         <TextView
             android:id="@+id/app_version"
             android:layout_marginLeft="50dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/app_name"
             android:textColor="#ff000000"
@@ -87,8 +87,7 @@
         android:textColor="#ff000000"
         android:textSize="15sp"
              android:layout_below="@+id/app_name"
-             android:layout_alignLeft="@+id/app_developer"
-             android:layout_alignStart="@+id/app_developer" />
+        android:layout_toRightOf="@+id/app_version" />
 
 
         <TextView
