@@ -21,9 +21,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,6 +81,18 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
 
     }
     @Override
+    protected void onPause() {
+        super.onPause();
+
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+    @Override
     public void onImageDownload(ArrayList<Bitmap> imgList){
         this.imageList = imgList;
         showImage(this.imageList);
@@ -92,7 +106,10 @@ public class FullImage extends Activity implements OnDownloadImageComplete{
             public View makeView() {
                 ImageView imageView = new ImageView(FullImage.this);
                 imageView.isFocusable();
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                FrameLayout.LayoutParams params = new ImageSwitcher.LayoutParams(
+                       RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                imageView.setLayoutParams(params);
                 imageView.setPadding(0,0,0,25);
                 return imageView;
 

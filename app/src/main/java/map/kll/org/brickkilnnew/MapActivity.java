@@ -132,7 +132,15 @@ public class MapActivity extends ActionBarActivity implements OnAsyncTaskComplet
         //tileRendererLayer.setXmlRenderTheme(getRenderTheme());
         // only once a layer is associated with a mapView the rendering starts
         this.mapView.getLayerManager().getLayers().add(tileRendererLayer);
-
+        this.mapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mapView.getModel().mapViewPosition.getZoomLevel()==10){
+                   mapView.getModel().mapViewPosition.setCenter(new LatLong(27.7000, 85.3333));
+                }
+                return false;
+            }
+        });
         getKilnData();
 
     }
